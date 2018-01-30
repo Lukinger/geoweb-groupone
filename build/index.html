@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Gruppe 1</title>
+
+  <style>
+    html,
+    body,
+    #map {
+      font-family: sans-serif;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #q {
+      position: absolute;
+      top: 10px;
+      left: 50px;
+      z-index: 1;
+      width: 300px;
+    }
+
+    .arrow_box {
+      position: relative;
+      background-color: #e8f0a3;
+      border: 3px solid #0e4a05;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+      padding: 1em 2em;
+      color: #0e4a05;
+    }
+
+    .arrow_box:after, .arrow_box:before {
+    	top: 100%;
+    	left: 50%;
+    	border: solid transparent;
+    	content: " ";
+    	height: 0;
+    	width: 0;
+    	position: absolute;
+    	pointer-events: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    }
+
+    .arrow_box:after {
+  	border-color: rgba(232, 240, 163, 0);
+  	border-top-color: #e8f0a3;
+  	border-width: 7px;
+  	margin-left: -7px;
+    box-shadow: none;
+  }
+  .arrow_box:before {
+  	border-color: rgba(14, 74, 5, 0);
+  	border-top-color: #0e4a05;
+  	border-width: 9px;
+  	margin-left: -9px;
+    box-shadow: none;
+  }
+
+    #popup-content {
+      max-height: 200px;
+      overflow: scroll;
+    }
+
+    #popup-content th {
+      text-align: left;
+      width: 170px;
+    }
+  </style>
+
+<link href="style.css" rel="stylesheet"></head>
+
+<body>
+  <div id="map">
+    <input id="q" name="q" type="text" placeholder="Adresse für die Suche eingeben ..."></input>
+    <div class="arrow_box" id="popup-container">
+      <div id="popup-content"></div>
+<script type="text/javascript" src="main.1a4d816d4e70550d1ef8.js"></script></body>
+
+</html>

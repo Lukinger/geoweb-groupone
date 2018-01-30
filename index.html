@@ -1,31 +1,168 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Gruppe 1</title>
 
-    <style>
-  		html,
-  		body,
-  		#map {
-  			font-family: sans-serif;
-  			margin: 0;
-  			height: 100%;
-  			width: 100%;
-  		}
-  		#q {
-  			position: absolute;
-  			top: 10px;
-  			left: 50px;
-  			z-index: 1;
-  			width: 300px;
-  		}
+<head>
+  <meta charset="utf-8">
+  <title>Gruppe 1</title>
+
+  <style>
+    html,
+    body,
+    #map {
+      font-family: sans-serif;
+      margin: 0;
+      height: 90%;
+      width: 100%;
+    }
+
+    #q {
+      position: absolute;
+      top: 10px;
+      left: 50px;
+      z-index: 1;
+      width: 300px;
+    }
+
+    .arrow_box {
+      position: relative;
+      background-color: #e8f0a3;
+      border: 3px solid #0e4a05;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, .5);
+      padding: 1em 2em;
+      color: #0e4a05;
+    }
+
+    .arrow_box:after,
+    .arrow_box:before {
+      top: 100%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+    }
+
+    .arrow_box:after {
+      border-color: rgba(232, 240, 163, 0);
+      border-top-color: #e8f0a3;
+      border-width: 7px;
+      margin-left: -7px;
+      box-shadow: none;
+    }
+
+    .arrow_box:before {
+      border-color: rgba(14, 74, 5, 0);
+      border-top-color: #0e4a05;
+      border-width: 9px;
+      margin-left: -9px;
+      box-shadow: none;
+    }
+
+    #popup-content {
+      max-height: 200px;
+      overflow: scroll;
+    }
+
+    #popup-content th {
+      text-align: left;
+      width: 170px;
+    }
+
+    #layertree li>span {
+      cursor: pointer;
+    }
   </style>
 
-  </head>
-  <body>
-  	<div id="map">
-      <input id="q" name="q" type="text" placeholder="Enter address here..."></input>
-    </div>
-  </body>
+</head>
+
+<body>
+
+  <input id="q" name="q" type="text" placeholder="Adresse für die Suche eingeben ..."></input>
+  <div class="arrow_box" id="popup-container"></div>
+  <div id="popup-content"></div>
+  <div id="map" class="map"></div>
+  <div id="layertree">
+    <h5>Click on layer nodes below to change their properties.</h5>
+    <ul>
+      <li><span>OSM layer</span>
+        <fieldset id="layer0">
+          <label class="checkbox" for="visible0">
+                <input id="visible0" class="visible" type="checkbox"/>visibility
+              </label>
+          <label>opacity</label>
+          <input class="opacity" type="range" min="0" max="1" step="0.01" />
+        </fieldset>
+      </li>
+      <li><span>Layer group</span>
+        <fieldset id="layer1">
+          <label class="checkbox" for="visible1">
+                <input id="visible1" class="visible" type="checkbox"/>visibility
+              </label>
+          <label>opacity</label>
+          <input class="opacity" type="range" min="0" max="1" step="0.01" />
+        </fieldset>
+      </li>
+    </ul>
+  </div>
+  <script>
+    var map = new ol.Map({
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM()
+        }), new ol.layer.Group({
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.TileJSON({
+                url: 'https://api.tiles.mapbox.com/v3/mapbox.20110804-hoa-foodinsecurity-3month.json?secure',
+                crossOrigin: 'anonymous'
+              })
+            }),
+            new ol.layer.Tile({
+              source: new ol.source.TileJSON({
+                url: 'https://api.tiles.mapbox.com/v3/mapbox.world-borders-light.json?secure',
+                crossOrigin: 'anonymous'
+              })
+            })
+          ]
+        })
+      ],
+      target: 'map',
+      view: new ol.View({
+        center: ol.proj.fromLonLat([37.40570, 8.81566]),
+        zoom: 4
+      })
+    });
+
+    function bindInputs(layerid, layer) {
+      var visibilityInput = $(layerid + ' input.visible');
+      visibilityInput.on('change', function() {
+        layer.setVisible(this.checked);
+      });
+      visibilityInput.prop('checked', layer.getVisible());
+
+      var opacityInput = $(layerid + ' input.opacity');
+      opacityInput.on('input change', function() {
+        layer.setOpacity(parseFloat(this.value));
+      });
+      opacityInput.val(String(layer.getOpacity()));
+    }
+    map.getLayers().forEach(function(layer, i) {
+      bindInputs('#layer' + i, layer);
+      if (layer instanceof ol.layer.Group) {
+        layer.getLayers().forEach(function(sublayer, j) {
+          bindInputs('#layer' + i + j, sublayer);
+        });
+      }
+    });
+
+    $('#layertree li > span').click(function() {
+      $(this).siblings('fieldset').toggle();
+    }).siblings('fieldset').hide();
+  </script>
+
+</body>
+
 </html>

@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "features": [{
+    "type": "Feature",
+    "properties": {
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "city",
+      "name": "zu Hause"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [16.457068920135498, 48.15481729473129]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "triangle",
+      "name": "TU PCRaum"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [16.369816660881042, 48.198019188957936]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "water",
+      "name": "Donaukanal"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [16.364822387695312, 48.22787470681804]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "water",
+      "name": "Donau"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [16.39760971069336, 48.235078603184284]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "marker-color": "#7e7e7e",
+      "marker-size": "medium",
+      "marker-symbol": "water",
+      "name": "Neue Donau"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [16.40554904937744, 48.23379226749873]
+    }
+  }]
+}
